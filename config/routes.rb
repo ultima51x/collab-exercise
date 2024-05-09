@@ -10,9 +10,9 @@ Rails.application.routes.draw do
 
   resources :playlists, only: [:index, :create, :show] do
     put :change_seq, on: :member
+    put :add_video, on: :member
+    put :remove_video, on: :member
   end
-
-  resources :playlist_entries, only: [:create, :destroy]
 
   resources :videos, only: [:index] do
     put :refresh, on: :collection

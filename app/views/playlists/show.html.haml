@@ -4,22 +4,33 @@
       %h2
         = @playlist.name
 
-.container{ 'data-controller' => 'playlist', 'data-playlist-changesequrl-value' => change_seq_playlist_path(@playlist) }
-  - @videos.each do |video|
-    .row.my-2.p-3.border{ 'data-playlist-target' => 'video', 'data-playlist-video' => video.id }
-      .col-1.text-center.my-auto
-        %h3
-          %i.bi.bi-grip-horizontal
-      .col-2.text-center.my-auto
-        %img{ src: video.thumbnail, alt: "Image for #{video.title}" }
+- if @videos.count == 0
+  .container
+    .row
       .col
-        %h5
-          = video.title
-        %div
-          = video.description
-        %div
-          %small.text-muted
-            = video.views
-            views
-      .col-2.text-center.my-auto
-        %a.btn.btn-primary Remove
+        There are no videos in this playlist. Go to
+        = link_to 'Videos', videos_path
+        to add videos to the playlist.
+
+- else
+  .container{ 'data-controller' => 'playlist', 'data-playlist-changesequrl-value' => change_seq_playlist_path(@playlist) }
+    - @videos.each do |video|
+      %turbo-frame{ id: "playlist_video_#{video.id}" }
+        .row.my-2.p-3.border{ 'data-playlist-target' => 'video', 'data-playlist-video' => video.id }
+          .col-1.text-center.my-auto.drag-handle
+            %h1
+              %i.bi.bi-grip-horizontal
+          .col-2.text-center.my-auto
+            %img{ src: video.thumbnail, alt: "Image for #{video.title}" }
+          .col
+            %h5
+              = video.title
+            %div
+              = video.description
+            %div
+              %small.text-muted
+                = video.views
+                views
+          .col-3.text-end.my-auto
+            %a.btn.btn-danger{ href: remove_video_playlist_path(@playlist, video_id: video.id), data: { turbo_method: 'put' } }
+              Remove from Playlist

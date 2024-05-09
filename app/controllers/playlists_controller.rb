@@ -1,5 +1,5 @@
 class PlaylistsController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:change_seq]
+  skip_before_action :verify_authenticity_token, only: [:change_seq, :add_video, :remove_video]
 
   def create
     @playlist = Playlist.new(user: current_user, name: params[:playlist][:name])
@@ -37,6 +37,35 @@ class PlaylistsController < ApplicationController
     render json: true
   end
 
+  def add_video
+    @playlist = find_one
+    video = Video.find_by(id: params[:video_id])
+    # Get the currently highest seq number
+    highest_seq = @playlist.playlist_entries.maximum(:seq) || -1
+    @playlist.playlist_entries.where(video: video).first_or_create(seq: highest_seq + 1)
+    render json: true
+  end
+
+  def remove_video
+    @playlist = find_one
+    video = Video.find_by(id: params[:video_id])
+    PlaylistEntry.where(video: video, playlist: @playlist).destroy_all
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.remove("playlist_video_#{video.id}")
+      end
+      format.json do
+        render json: true
+      end
+    end
+  end
+
   def home
+  end
+
+  protected
+
+  def find_one
+    current_user.playlists.find(params[:id])
   end
 end

@@ -10,6 +10,8 @@ Some features of Stimulus are used <https://stimulus.hotwired.dev/>. It is inclu
 
 This uses <https://github.com/Shopify/draggable/tree/main/src/Sortable> for sortable functionality.
 
+Some of the functionality was inspired by looking at YouTube, specifically with adding/removing videos from playlists from the videos page.
+
 
 ## Versions
 

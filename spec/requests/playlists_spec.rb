@@ -49,4 +49,53 @@ RSpec.describe "Playlists", type: :request do
       expect(response.status).to eql 200
     end
   end
+
+  describe "add_video" do
+    let!(:playlist) { FactoryBot.create :playlist, user: user }
+    let!(:entry) { FactoryBot.create :playlist_entry, playlist: playlist }
+    let!(:video) { FactoryBot.create :video }
+
+    context "entry with video exists" do
+      it "does not add entry" do
+        expect do
+          put "/playlists/#{playlist.id}/add_video", params: {video_id: entry.video_id}
+        end.to change { PlaylistEntry.count }.by(0)
+        expect(response.status).to eql 200
+      end
+    end
+
+    context "entry with video does not exist" do
+      it "adds entry" do
+        expect do
+          put "/playlists/#{playlist.id}/add_video", params: {video_id: video.id}
+        end.to change { PlaylistEntry.count }.by(1)
+
+        expect(response.status).to eql 200
+      end
+    end
+  end
+
+  describe "remove_video" do
+    let!(:playlist) { FactoryBot.create :playlist, user: user }
+    let!(:entry) { FactoryBot.create :playlist_entry, playlist: playlist }
+    let!(:video) { FactoryBot.create :video }
+
+    context "entry with video exists" do
+      it "removes entry" do
+        expect do
+          put "/playlists/#{playlist.id}/remove_video.json", params: {video_id: entry.video_id}
+        end.to change { PlaylistEntry.count }.by(-1)
+        expect(response.status).to eql 200
+      end
+    end
+
+    context "entry with video does not exist" do
+      it "does not remove an entry" do
+        expect do
+          put "/playlists/#{playlist.id}/remove_video.json", params: {video_id: video.id}
+        end.to change { PlaylistEntry.count }.by(0)
+        expect(response.status).to eql 200
+      end
+    end
+  end
 end

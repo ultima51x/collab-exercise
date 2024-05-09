@@ -1,0 +1,31 @@
+.row.my-2.p-3.border{ 'data-controller' => 'video', 'data-video-id-value' => video.id }
+  .col-2.text-center.my-auto
+    %img{ src: video.thumbnail, alt: "Image for #{video.title}" }
+  .col
+    %h5
+      = video.title
+    %div
+      = video.description
+    %div
+      %small.text-muted
+        = video.views
+        views
+  .col-1.text-center.my-auto
+    %button.btn.btn-primary{ 'data-action' => 'video#openPlaylistModal' }
+      Playlists
+
+  .modal{ tabindex: '-1' }
+    .modal-dialog
+      .modal-content
+        .modal-header
+          .modal-title
+            %h5
+              Playlists for
+              %em= video.title
+        .modal-body
+          %div
+            - @playlists.each do |pl|
+              .form-check
+                %label.form-check-label
+                  %input.form-check-input{ type: 'checkbox', value: pl.id, 'data-action' => 'video#toggleFromPlaylist', checked: @playlist_entries_set.include?([video.id, pl.id]) }
+                  = pl.name
