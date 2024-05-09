@@ -7,8 +7,7 @@ class PlaylistEntriesController < ApplicationController
       @entry = PlaylistEntry.create(video: video, playlist: playlist)
       render json: @entry
     else
-      raise "hi"
-      # TODO dunno
+      raise NotImplementedError
     end
   end
 
@@ -16,10 +15,5 @@ class PlaylistEntriesController < ApplicationController
     @entry = PlaylistEntry.find(params[:id])
     @entry.destroy!
     render json: nil
-  end
-
-  def move
-    @entry = PlaylistEntry.find(params[:id])
-    render json: @entry
   end
 end

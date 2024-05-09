@@ -2,17 +2,15 @@ require "rails_helper"
 
 RSpec.describe "Videos", type: :request do
   describe "index" do
-    it "shows videos" do
+    it do
       get "/videos"
-      # TODO
       expect(response.status).to eql 200
     end
   end
 
   describe "refresh" do
-    it "triggers refresh of video ingestion" do
+    it do
       put "/videos/refresh"
-
       expect(response.status).to eql 302
     end
   end

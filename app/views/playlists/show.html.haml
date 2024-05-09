@@ -4,10 +4,12 @@
       %h2
         = @playlist.name
 
+.container{ 'data-controller' => 'playlist', 'data-playlist-changesequrl-value' => change_seq_playlist_path(@playlist) }
   - @videos.each do |video|
-    .row.my-2.p-3.border
-      .col-1.border
-        Drag Here
+    .row.my-2.p-3.border{ 'data-playlist-target' => 'video', 'data-playlist-video' => video.id }
+      .col-1.text-center.my-auto
+        %h3
+          %i.bi.bi-grip-horizontal
       .col-2.text-center.my-auto
         %img{ src: video.thumbnail, alt: "Image for #{video.title}" }
       .col
@@ -19,5 +21,5 @@
           %small.text-muted
             = video.views
             views
-      .col-1.text-center.my-auto
+      .col-2.text-center.my-auto
         %a.btn.btn-primary Remove

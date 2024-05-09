@@ -23,13 +23,4 @@ RSpec.describe "PlaylistEntries", type: :request do
       expect(response.status).to eql 200
     end
   end
-
-  describe "move" do
-    let(:entry) { FactoryBot.create :playlist_entry }
-
-    it do
-      put "/playlist_entries/#{entry.id}/move"
-      skip "not implemented"
-    end
-  end
 end

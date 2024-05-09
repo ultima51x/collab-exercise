@@ -6,6 +6,11 @@ This was implemented using Rails server side templating and Bootstrap 5.  I deci
 
 I decided to lint the code using ruby standard.
 
+Some features of Stimulus are used <https://stimulus.hotwired.dev/>. It is included with Rails by default.
+
+This uses <https://github.com/Shopify/draggable/tree/main/src/Sortable> for sortable functionality.
+
+
 ## Versions
 
 * This was implemented using Ruby 3.3.0 and Rails 7.1
@@ -24,7 +29,7 @@ Make sure to run `rake db:seed` because it creates one fake user for the app to 
 
 ## Tests
 
-Tests can be run
+There are very basic sanity tests included.  Most of them only test HTTP codes.  Tests can be run using:
 
 ```
 bundle exec rspec

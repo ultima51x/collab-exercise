@@ -8,11 +8,11 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "playlists#home"
 
-  resources :playlists, only: [:index, :create, :show]
-
-  resources :playlist_entries, only: [:create, :destroy] do
-    put :move, on: :member
+  resources :playlists, only: [:index, :create, :show] do
+    put :change_seq, on: :member
   end
+
+  resources :playlist_entries, only: [:create, :destroy]
 
   resources :videos, only: [:index] do
     put :refresh, on: :collection
