@@ -1,0 +1,22 @@
+.container
+  .row
+    .col
+      %h2 Videos
+    .col-2.text-end
+      %a.btn.btn-warning{ href: refresh_videos_path, data: { turbo_method: 'put' }} Refresh Videos
+
+  - @videos.each do |video|
+    .row.my-2.p-3.border
+      .col-2.text-center.my-auto
+        %img{ src: video.thumbnail, alt: "Image for #{video.title}" }
+      .col
+        %h5
+          = video.title
+        %div
+          = video.description
+        %div
+          %small.text-muted
+            = video.views
+            views
+      .col-1.text-center.my-auto
+        %a.btn.btn-primary Add to Playlist

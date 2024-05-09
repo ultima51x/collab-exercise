@@ -1,0 +1,23 @@
+.container
+  .row
+    .col
+      %h2
+        = @playlist.name
+
+  - @videos.each do |video|
+    .row.my-2.p-3.border
+      .col-1.border
+        Drag Here
+      .col-2.text-center.my-auto
+        %img{ src: video.thumbnail, alt: "Image for #{video.title}" }
+      .col
+        %h5
+          = video.title
+        %div
+          = video.description
+        %div
+          %small.text-muted
+            = video.views
+            views
+      .col-1.text-center.my-auto
+        %a.btn.btn-primary Remove

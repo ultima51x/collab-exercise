@@ -2,11 +2,11 @@ class VideosController < ApplicationController
   def index
     # TODO Need pagination
     @videos = Video.all
-    render json: @videos.map(&:as_json) # TODO
   end
 
   def refresh
     VideoImporterJob.perform_later
-    render json: true # TODO real payload
+    flash[:notice] = "Fetching videos. New videos will populate when you come back to the page later."
+    redirect_to action: :index
   end
 end

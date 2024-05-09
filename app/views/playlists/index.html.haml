@@ -1,0 +1,16 @@
+.container
+  = form_with model: Playlist.new, url: playlists_path, method: :post do |form|
+    .row
+      .col
+        %h2 Playlists
+      .col-3
+        = form.text_field :name, class: 'form-control', placeholder: 'Name', required: true
+      .col-auto
+        = form.submit "Add New Playlist", class: 'btn btn-secondary'
+
+  - @playlists.each do |playlist|
+    .row.my-2.p-3.border
+      .col
+        %h5= playlist.name
+      .col.text-end
+        = link_to 'Show', playlist_path(playlist), class: 'btn btn-primary'

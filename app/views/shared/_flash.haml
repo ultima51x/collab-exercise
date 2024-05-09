@@ -1,0 +1,9 @@
+.container
+  - flash.each do |type, msg|
+    .row
+      - if type == 'alert'
+        .alert.alert-danger{ role: 'alert' }
+          = msg
+      - else
+        .alert.alert-primary{ role: 'alert' }
+          = msg

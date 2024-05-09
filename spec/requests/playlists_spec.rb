@@ -9,7 +9,7 @@ RSpec.describe "Playlists", type: :request do
         post "/playlists", params: {playlist: {name: "Blah"}}
       end.to change { Playlist.where(name: "Blah").count }.by(1)
 
-      expect(response.status).to eql 200
+      expect(response.status).to eql 302
     end
   end
 

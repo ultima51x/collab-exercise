@@ -13,7 +13,7 @@ RSpec.describe "Videos", type: :request do
     it "triggers refresh of video ingestion" do
       put "/videos/refresh"
 
-      expect(response.status).to eql 200
+      expect(response.status).to eql 302
     end
   end
 end
