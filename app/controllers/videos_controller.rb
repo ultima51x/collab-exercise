@@ -1,6 +1,16 @@
 class VideosController < ApplicationController
   def index
     @videos = Video.all
+    if params[:q].present?
+      # Full text search on video
+      # Ref: https://www.postgresql.org/docs/current/textsearch-tables.html for
+      # Corresponds with a migration AddIndexToVideoTitle
+      @videos = @videos.where("to_tsvector(?, title) @@ to_tsquery(?, ?)", "english", "english", params[:q])
+    end
+
+    # NOTE: pagination could go here using params[:page], etc if it existed
+    # page = params[:page].presence || 1
+
     @playlists = current_user.playlists.order(:name)
 
     # We need to know which videos belong to which playlists, so storing this

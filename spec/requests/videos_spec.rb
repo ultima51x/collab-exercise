@@ -12,8 +12,13 @@ RSpec.describe "Videos", type: :request do
       pl
     end
 
-    it do
+    it "works in normal case" do
       get "/videos"
+      expect(response.status).to eql 200
+    end
+
+    it "works when searching" do
+      get "/videos", params: {q: "hi"}
       expect(response.status).to eql 200
     end
   end

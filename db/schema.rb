@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_09_053920) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_09_222304) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "btree_gin"
   enable_extension "plpgsql"
 
   create_table "playlist_entries", force: :cascade do |t|
@@ -51,6 +52,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_09_053920) do
     t.string "external_ref"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index "to_tsvector('english'::regconfig, (title)::text)", name: "index_videos_on_title", using: :gin
     t.index ["external_ref"], name: "index_videos_on_external_ref", unique: true
   end
 

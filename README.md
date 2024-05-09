@@ -12,6 +12,10 @@ This uses <https://github.com/Shopify/draggable/tree/main/src/Sortable> for sort
 
 Some of the functionality was inspired by looking at YouTube, specifically with adding/removing videos from playlists from the videos page.
 
+Search on titles was implemented using full text search.  On a bigger project, I'd probably opt to use <https://github.com/Casecommons/pg_search>.
+
+I skipped on working on pagination due to lack of time, but I'd probably use something like kaminari
+
 
 ## Versions
 
