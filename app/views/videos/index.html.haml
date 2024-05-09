@@ -6,12 +6,11 @@
         Use Refresh Buttons to load videos from an external API.
 
   = form_with url: videos_path, method: :get do |form|
-    .row
-      .col
+    .row.justify-content-end
       .col-3.p-0.mx-1
         = form.text_field :q, class: 'form-control', value: params[:q]
       .col-auto.p-0.mx-1
-        = form.submit "Search", class: 'btn btn-secondary form-control'
+        = form.submit "Search", class: 'btn btn-secondary form-control', placeholder: 'Search by Title'
       .col-auto.p-0.mx-1
         %div
           %a.btn.btn-warning.form-control{ href: refresh_videos_path, data: { turbo_method: 'put' }} Refresh Videos

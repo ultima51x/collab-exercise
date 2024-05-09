@@ -5,7 +5,8 @@ class VideosController < ApplicationController
       # Full text search on video
       # Ref: https://www.postgresql.org/docs/current/textsearch-tables.html for
       # Corresponds with a migration AddIndexToVideoTitle
-      @videos = @videos.where("to_tsvector(?, title) @@ to_tsquery(?, ?)", "english", "english", params[:q])
+      term = params[:q].split(/\s/).join(" <-> ") # a search query like "the cat" won't work
+      @videos = @videos.where("to_tsvector(?, title) @@ to_tsquery(?, ?)", "english", "english", term)
     end
 
     # NOTE: pagination could go here using params[:page], etc if it existed

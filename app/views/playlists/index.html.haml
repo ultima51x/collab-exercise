@@ -3,9 +3,9 @@
     .row
       .col
         %h2 Playlists
-      .col-3
+      .col-3.mx-1.p-0
         = form.text_field :name, class: 'form-control', placeholder: 'Name', required: true
-      .col-auto
+      .col-auto.mx-1.p-0
         = form.submit "Add New Playlist", class: 'btn btn-secondary'
 
   - @playlists.each do |playlist|

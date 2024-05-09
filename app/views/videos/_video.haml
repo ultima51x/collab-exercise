@@ -1,21 +1,21 @@
 .row.my-2.p-3.border{ 'data-controller' => 'video', 'data-video-id-value' => video.id }
-  .col-2.text-center.my-auto
+  .col-auto.text-center.my-auto
     %img{ src: video.thumbnail, alt: "Image for #{video.title}" }
   .col
     %h5
       = video.title
-    %div
+    %div.text-break
       = video.description
     %div
       %small.text-muted
         = video.views
         views
-  .col-1.text-center.my-auto
+  .col-auto.text-center.my-auto
     %button.btn.btn-primary{ 'data-action' => 'video#openPlaylistModal' }
       Playlists
 
   .modal{ tabindex: '-1' }
-    .modal-dialog
+    .modal-dialog.modal-dialog-centered
       .modal-content
         .modal-header
           .modal-title

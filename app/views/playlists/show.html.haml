@@ -17,20 +17,20 @@
     - @videos.each do |video|
       %turbo-frame{ id: "playlist_video_#{video.id}" }
         .row.my-2.p-3.border{ 'data-playlist-target' => 'video', 'data-playlist-video' => video.id }
-          .col-1.text-center.my-auto.drag-handle
+          .col-auto.text-center.my-auto.drag-handle
             %h1
               %i.bi.bi-grip-horizontal
-          .col-2.text-center.my-auto
+          .col-auto.text-center.my-auto
             %img{ src: video.thumbnail, alt: "Image for #{video.title}" }
           .col
             %h5
               = video.title
-            %div
+            %div.text-break
               = video.description
             %div
               %small.text-muted
                 = video.views
                 views
-          .col-3.text-end.my-auto
+          .col-auto.text-end.my-auto
             %a.btn.btn-danger{ href: remove_video_playlist_path(@playlist, video_id: video.id), data: { turbo_method: 'put' } }
               Remove from Playlist
